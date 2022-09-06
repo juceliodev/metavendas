@@ -1,0 +1,106 @@
+.dsmeta-card {
+    background: #283142;
+    border-radius: 10px;
+    padding: 30px 10px; /*primeira medida na vertical e a segunda na horizontal*/
+  }
+  
+  .dsmeta-sales-title {
+    color: #676fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /*class da div que contem os inputs de data*/
+  .dsmeta-form-control-container {
+    margin-bottom: 16px;
+    max-width: 300px;
+  }
+  
+  /*class dos inputs de data*/
+  .dsmeta-form-control {
+    width: 100%;
+    height: 46px;
+    background-color: #1b2531;
+    border: 1px solid #384459;
+    border-radius: 5px;
+    color: #9aaabe;
+    padding: 0 20px;
+    font-size: 18px;
+  }
+  
+  /*Formatacao da tabela*/
+  
+  .dsmeta-sale-table {
+    width: 100%;
+    border-spacing: 0; /*retira os espaçametos entre os icones*/
+    /*Para que a borda setada no tr da tabela apareca*/
+    border-collapse: collapse;
+  }
+  
+  .dsmeta-sale-table thead {
+    height: 55px;
+    font-size: 16px;
+    color: #e9e9e9;
+    font-weight: 700;
+  }
+  
+  .dsmeta-sale-table tbody {
+    font-size: 14px;
+    font-weight: 400;
+    color: #cfcfcf;
+    text-align: center;
+  }
+  
+  .dsmeta-sale-table tbody tr {
+    height: 74px;
+    border-top: 1px solid #5f6e82;
+  }
+  /*O > td é para que o efeito hover funcione em todas as linhas*/
+  .dsmeta-sale-table tbody tr:hover > td {
+    background-color: #384459;
+  }
+  
+  .dsmeta-sale-table tbody tr:nth-child(odd) {
+    background-color: #242c38;
+  }
+  
+  .dsmeta-red-btn-container{
+      display: flex;
+      justify-content: center;
+  }
+ 
+  .show992px{
+      display: none;
+  }
+  
+  .show576px{
+      display: none;
+  }
+  
+  /*A parir de 576px o campo data aparece na tabela*/
+  @media (min-width:576px){
+  
+      .show576px{
+          display: table-cell; /*Formato padrao de exibicao de tabela*/
+      }
+  
+      .dsmeta-card{
+          padding: 35px;
+      }
+  
+      .dsmeta-sale-table tbody tr{
+          height: 55px;
+      }
+      .dsmeta-sale-table tbody{
+          font-size: 18px;
+      }
+  }
+  
+  /*A parir de 992px os campos ID visitas e Vendas aparecem na tabela*/
+  @media (min-width: 992px){
+      
+      .show992px{
+          display: table-cell;
+      }
+  }
+  

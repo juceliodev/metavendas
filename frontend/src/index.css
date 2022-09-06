@@ -28,6 +28,17 @@ a:visited {
   text-decoration: none;
 }
 
+/*Para formatar a div que esta no App.tsx*/
+.dsmeta-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#sales {
+  padding: 40px 10px; /*primeira medida na vertical e a segunda na horizontal*/
+}
+
 
 /*:root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
