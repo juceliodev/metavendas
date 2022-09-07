@@ -12,6 +12,7 @@ function SalesCard() {
     /**Macete para setar uma data de X dias atras */
     const min = new Date(new Date().setDate(new Date().getDate() - 365));
 
+    /**Criacao de use states para manipulacao das datas */
     const [minDate , setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(new Date());
 

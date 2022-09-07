@@ -1,9 +1,9 @@
-import logo from "../../assets/img/logo.svg"
-import "./style.css"
+import logo from "../../assets/img/logo.svg";
+import "./style.css";
 
-function Header(){
-    return(
-        <header>
+function Header() {
+  return (
+    <header>
       <div className="dsmeta-logo-container">
         <img src={logo} alt="logo" />
         <h1>DSMETA</h1>
@@ -13,7 +13,7 @@ function Header(){
         </p>
       </div>
     </header>
-    )
+  );
 }
 
-export default Header
+export default Header;
