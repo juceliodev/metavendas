@@ -19,8 +19,8 @@ public class SaleService {
 	private SaleRepository repository;
 	
 	
-	/*Metodo retorna as vendas com base um uma data minima e maxima recebida por parametros
-	 * retormo paginado*/
+	/*Metodo retorna as vendas com base um uma data minima e maxima recebida por argumento do frontend
+	 * retorno paginado*/
 	public Page<Sale> findSales(String minDate, String maxDate, Pageable pageable){
 		
 		/*Pegando a data de hoje atua e o passando o zoneId do sistema*/
