@@ -14,6 +14,7 @@ function SalesCard() {
   /**Macete para setar uma data de X dias atras */
   const min = new Date(new Date().setDate(new Date().getDate() - 365));
 
+
   /**Criacao de use states para manipulacao das datas */
   const [minDate, setMinDate] = useState(min);
   const [maxDate, setMaxDate] = useState(new Date());
@@ -23,18 +24,32 @@ function SalesCard() {
     e inicializado como uma lista vazia*/
   const [sales, setSales] = useState<Sale[]>([]);
 
-  {
     /**Utilizando o axios para fazer requisicao com o backend
   O useEffect é exercutado sempre que o componente é montado e tambem sempre 
   que um dado passado para ele é alterado. esta atrelado ao ciclo de
   vida do componetne
   A requisicao retorna uma promisse e o metodo .then recebe esta promisse caso tudo de certo  */
-  }
   useEffect(() => {
-    axios.get(`${BASE_URL}/sales`).then((response) => {
+
+   /** A data vem do form nesse formato Fri Sep 10 2021 14:10:31 GMT-0300
+   * Precisamos converte-la para o formato yyyy/mm/dd para enviar na requisicao para isso
+   * usamos a funcao toIsoString do jacascript e o slice para recortar a parte do retorno que nao sera 
+   * usada*/
+    const dataMinima = minDate.toISOString().slice(0, 10);
+
+    /*console.log(dataminima);*/
+
+    const dataMaxima = maxDate.toISOString().slice(0, 10);
+  
+
+    axios.get(`${BASE_URL}/sales?minDate=${dataMinima}&maxDate=${dataMaxima}`)
+    .then((response) => {
       setSales(response.data.content);
     });
-  }, []);
+    /** informando ao useEffect que sempre que esses dados forem alterados na requisicao ele execute
+     * a funçao novamente
+    */
+  }, [minDate,maxDate]);
 
   return (
     <div className="dsmeta-card">
