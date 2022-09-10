@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 /**Importacao de biblioteca esterna para trabalhar com datas */
 import DatePicker from "react-datepicker";
@@ -15,6 +16,18 @@ function SalesCard() {
     /**Criacao de use states para manipulacao das datas */
     const [minDate , setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(new Date());
+
+    {/**Utilizando o axios para fazer requisicao com o backend
+  O useEffect é exercutado sempre que o componente é montado e tambem sempre 
+  que um dado passado para ele é alterado. esta atrelado ao ciclo de
+  vida do componetne
+  A requisicao retorna uma promisse e o metodo .then recebe esta promisse caso tudo de certo  */}
+    useEffect(() => {
+      axios.get("http://localhost:8080/sales")
+      .then(response =>{
+        console.log(response.data);
+      })
+    },[]);
 
 
   return (
