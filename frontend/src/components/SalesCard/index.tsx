@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../../utils/request";
+import { Sale } from "../../models/sale";
 
 /**Importacao de biblioteca esterna para trabalhar com datas */
 import DatePicker from "react-datepicker";
@@ -9,26 +11,30 @@ import NotificationButton from "../notificationButton";
 import "./style.css";
 
 function SalesCard() {
+  /**Macete para setar uma data de X dias atras */
+  const min = new Date(new Date().setDate(new Date().getDate() - 365));
 
-    /**Macete para setar uma data de X dias atras */
-    const min = new Date(new Date().setDate(new Date().getDate() - 365));
+  /**Criacao de use states para manipulacao das datas */
+  const [minDate, setMinDate] = useState(min);
+  const [maxDate, setMaxDate] = useState(new Date());
 
-    /**Criacao de use states para manipulacao das datas */
-    const [minDate , setMinDate] = useState(min);
-    const [maxDate, setMaxDate] = useState(new Date());
+  /*Criando um useState para manupular a venda que vira da requisiao
+    useState tipado com com o sale tipo lista pois a requisicao retorna uma lista 
+    e inicializado como uma lista vazia*/
+  const [sales, setSales] = useState<Sale[]>([]);
 
-    {/**Utilizando o axios para fazer requisicao com o backend
+  {
+    /**Utilizando o axios para fazer requisicao com o backend
   O useEffect é exercutado sempre que o componente é montado e tambem sempre 
   que um dado passado para ele é alterado. esta atrelado ao ciclo de
   vida do componetne
-  A requisicao retorna uma promisse e o metodo .then recebe esta promisse caso tudo de certo  */}
-    useEffect(() => {
-      axios.get("http://localhost:8080/sales")
-      .then(response =>{
-        console.log(response.data);
-      })
-    },[]);
-
+  A requisicao retorna uma promisse e o metodo .then recebe esta promisse caso tudo de certo  */
+  }
+  useEffect(() => {
+    axios.get(`${BASE_URL}/sales`).then((response) => {
+      setSales(response.data.content);
+    });
+  }, []);
 
   return (
     <div className="dsmeta-card">
@@ -66,58 +72,29 @@ function SalesCard() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="show992px">#341</td>
-              <td className="show576px">08/07/2022</td>
-              <td>Anakin</td>
-              <td>R$ 55300,00</td>
-              <td className="show992px">15</td>
-              <td className="show992px">11</td>
-              <td>
-                <div className="dsmeta-red-btn-container">
-                  <NotificationButton />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="show992px">#341</td>
-              <td className="show576px">08/07/2022</td>
-              <td>Anakin</td>
-              <td>R$ 55300,00</td>
-              <td className="show992px">15</td>
-              <td className="show992px">11</td>
-              <td>
-                <div className="dsmeta-red-btn-container">
-                  <NotificationButton />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="show992px">#341</td>
-              <td className="show576px">08/07/2022</td>
-              <td>Anakin</td>
-              <td>R$ 55300,00</td>
-              <td className="show992px">15</td>
-              <td className="show992px">11</td>
-              <td>
-                <div className="dsmeta-red-btn-container">
-                  <NotificationButton />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td className="show992px">#341</td>
-              <td className="show576px">08/07/2022</td>
-              <td>Anakin</td>
-              <td>R$ 55300,00</td>
-              <td className="show992px">15</td>
-              <td className="show992px">11</td>
-              <td>
-                <div className="dsmeta-red-btn-container">
-                  <NotificationButton />
-                </div>
-              </td>
-            </tr>
+            {sales.map((sale) => {
+              return (
+                /**Para trabalhar listas precisamos informar uma chave para que o react
+                possta gerencias quais valores foram alterados */
+                <tr key={sale.id}>
+                  <td className="show992px">{sale.id}</td>
+                  {/**toLocaleDateString funcao do jacascript para mostrar a data em formato 
+                   *  dd/mm/yyy para o usuario, a data vem da requisicao com formato yyyy/mm/dd.
+                   */}
+                  <td className="show576px">{new Date(sale.date).toLocaleDateString()}</td>
+                  <td>{sale.sellerName}</td>
+                  <td className="show992px">{sale.visited}</td>
+                  <td className="show992px">{sale.deals}</td>
+                  {/**toFixed funcao do java script para colocar casas decimais */}
+                  <td>R$ {sale.amount.toFixed(2)}</td>
+                  <td>
+                    <div className="dsmeta-red-btn-container">
+                      <NotificationButton />
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
